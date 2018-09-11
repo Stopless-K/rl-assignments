@@ -55,12 +55,13 @@ class NatureQN(Linear):
         ##############################################################
         ################ YOUR CODE HERE - 10-15 lines ################ 
 
-        out = layers.conv2d(out, 32, [8,8], 4, scope=scope, reuse=reuse)
-        out = layers.conv2d(out, 64, [4,4], 2, scope=scope, reuse=reuse)
-        out = layers.conv2d(out, 64, [3,3], 1, scope=scope, reuse=reuse)
-        out  = layers.flatten(out)
-        out = layers.fully_connected(out, 512, activation_fn=tf.nn.relu, scope=scope, reuse=reuse)
-        out = layers.fully_connected(out, num_actions, activation_fn=None, scope=scope, reuse=reuse)
+        with tf.variable_scope(scope, reuse=reuse):
+            out = layers.conv2d(out, 32, [8,8], 4)
+            out = layers.conv2d(out, 64, [4,4], 2)
+            out = layers.conv2d(out, 64, [3,3], 1)
+            out  = layers.flatten(out)
+            out = layers.fully_connected(out, 512, activation_fn=tf.nn.relu)
+            out = layers.fully_connected(out, num_actions, activation_fn=None)
 
         ##############################################################
         ######################## END YOUR CODE #######################
